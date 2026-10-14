@@ -1,0 +1,21 @@
+name: Build iPadView dylib
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dylib
+        run: make
+      - name: Show size
+        run: ls -lh build/iPadView.dylib
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iPadView-dylib
+          path: build/iPadView.dylib
